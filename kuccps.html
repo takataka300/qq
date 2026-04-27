@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>KUCCPS Tools 2025 — Course Finder & Placement Results | KNEC Hub</title>
+<meta name="description" content="Find the most marketable KUCCPS courses for your KCSE cluster points and check your KUCCPS 2025 placement results instantly." />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-mark">🎓</div>
+      <div>
+        <div class="logo-text">KNEC Hub</div>
+        <div class="logo-sub">Past Papers · Tools</div>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Past Papers</a>
+      <a href="kuccps.html" class="active kuccps">KUCCPS</a>
+      <a href="app.html">App</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero kuccps-hero">
+  <div class="hero-inner" style="text-align:left">
+    <div class="hero-pill" style="border-color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.1);color:white">
+      ✨ KUCCPS Tools · 2025
+    </div>
+    <h1 style="text-align:left;color:white;max-width:800px;margin:0">Find your perfect KUCCPS course — and check your placement.</h1>
+    <p style="text-align:left;margin:18px 0 0;max-width:620px">Personalised, marketable course recommendations based on your KCSE cluster points, plus instant 2025 placement results lookup.</p>
+  </div>
+</section>
+
+<main class="container" style="padding-top:50px">
+
+  <div class="tool-select-wrap">
+    <label for="tool-select" class="tool-select-label">Choose a tool</label>
+    <select id="tool-select" class="tool-select">
+      <option value="finder">🎯 Course Finder — match your KCSE grades to marketable courses</option>
+      <option value="results">📋 Placement Results — check your 2025 KUCCPS placement</option>
+    </select>
+  </div>
+
+  <section id="tool-finder" style="max-width:780px">
+    <div class="eyebrow kuccps-eyebrow">Tool 01</div>
+    <h2 style="font-size:clamp(26px,3vw,36px);margin:6px 0 12px;font-weight:800">KUCCPS Course Finder</h2>
+    <p style="color:var(--muted-fg);max-width:620px">
+      Our smart engine matches your KCSE grades to the most marketable degree and diploma programmes
+      across all 70+ Kenyan universities and colleges. Get cluster cut-offs, employability scores
+      and admission probability — instantly.
+    </p>
+    <ul class="bullet-list">
+      <li>Real 2024/2025 cluster cut-off points</li>
+      <li>Marketability & job-market score per course</li>
+      <li>Filtered by your subject cluster (1–24)</li>
+      <li>University & campus location preferences</li>
+    </ul>
+    <button id="courses-btn" class="btn btn-kuccps btn-lg" style="margin-top:24px">🔍 Look Up Courses</button>
+  </section>
+
+  <section id="tool-results" class="results-card" style="display:none">
+    <div class="eyebrow kuccps-eyebrow">Tool 02</div>
+    <h2 style="font-size:clamp(26px,3vw,36px);margin:6px 0 12px;font-weight:800">🎯 Check KUCCPS Placement Results</h2>
+    <p style="color:var(--muted-fg);max-width:560px">Enter your KCSE index number and exam year to retrieve your KUCCPS placement.</p>
+    <form id="placement-form" class="form-grid">
+      <div class="field">
+        <label for="idxno">KCSE Index Number</label>
+        <input id="idxno" placeholder="e.g. 12345678/001" required />
+      </div>
+      <div class="field">
+        <label for="year">Exam Year</label>
+        <input id="year" placeholder="2024" required />
+      </div>
+      <div style="display:flex;align-items:flex-end">
+        <button class="btn btn-kuccps btn-block" type="submit">Check</button>
+      </div>
+    </form>
+    <div id="placement-msg" class="placement-msg" style="display:none">
+      <span style="color:var(--kuccps);flex-shrink:0">⚠</span>
+      <div id="placement-msg-body" style="flex:1"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  © <span id="yr"></span> KNEC Hub · Past papers, KUCCPS tools & more.
+</footer>
+
+<script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+<script src="script.js"></script>
+</body>
+</html>

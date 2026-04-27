@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>KNEC Past Papers 2025 — KCSE, KJSEA, KPSEA Downloads | KNEC Hub</title>
+<meta name="description" content="Download KNEC past papers 2025: KCSE, KJSEA, KPSEA, college & TVET past papers. All Kenya National Examinations Council subjects with marking schemes." />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-mark">🎓</div>
+      <div>
+        <div class="logo-text">KNEC Hub</div>
+        <div class="logo-sub">Past Papers · Tools</div>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="index.html" class="active knec">Past Papers</a>
+      <a href="kuccps.html">KUCCPS</a>
+      <a href="app.html">App</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero knec-hero">
+  <div class="hero-inner">
+    <div class="hero-pill"><span style="width:6px;height:6px;border-radius:50%;background:var(--knec)"></span> 2025 Papers Now Available</div>
+    <h1>Kenya National Examinations Council<span class="accent">Past Papers Archive</span></h1>
+    <p>The most comprehensive collection of KCSE, KJSEA, KPSEA and college past papers — with marking schemes, organised by year and subject.</p>
+
+    <div class="search-wrap">
+      <input id="paper-search" class="search-input" type="text" placeholder="Search any paper — e.g. 'Physics Paper 2', 'KJSEA Maths', 'CPA'…" />
+      <div id="search-results" class="search-results" style="display:none"></div>
+    </div>
+
+    <div class="hero-tags">
+      <span class="tag">📚 1,200+ papers</span>
+      <span class="tag">✓ Marking schemes</span>
+      <span class="tag">⚡ Instant download</span>
+    </div>
+  </div>
+</section>
+
+<main class="container">
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon">📖</div>
+      <div>
+        <div class="eyebrow">KCSE · 2025</div>
+        <h2>KCSE Past Papers 2025</h2>
+        <p class="desc">Complete subject coverage for the 2025 Kenya Certificate of Secondary Education exam, including marking schemes.</p>
+      </div>
+    </div>
+    <div class="paper-grid" id="kcse-grid"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon">📄</div>
+      <div>
+        <div class="eyebrow">KJSEA · Grade 9</div>
+        <h2>KJSEA 2025 Past Papers</h2>
+        <p class="desc">Kenya Junior School Education Assessment papers under the Competency Based Curriculum (CBC).</p>
+      </div>
+    </div>
+    <div class="paper-grid" id="kjsea-grid"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon">📄</div>
+      <div>
+        <div class="eyebrow">KPSEA · Grade 6</div>
+        <h2>KPSEA 2025 Past Papers</h2>
+        <p class="desc">Kenya Primary School Education Assessment — full subject papers for Grade 6 transition.</p>
+      </div>
+    </div>
+    <div class="paper-grid" id="kpsea-grid"></div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <div class="section-icon">🔍</div>
+      <div>
+        <div class="eyebrow">Colleges & TVET · 2025</div>
+        <h2>College Past Papers 2025</h2>
+        <p class="desc">KASNEB, KMTC, KIMC, TVET and Diploma past papers — most-searched programmes in Kenya.</p>
+      </div>
+    </div>
+    <div class="paper-grid" id="college-grid"></div>
+  </section>
+</main>
+
+<footer class="footer">
+  © <span id="yr"></span> KNEC Hub · Past papers, KUCCPS tools & more.
+</footer>
+
+<script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+<script src="script.js"></script>
+</body>
+</html>
