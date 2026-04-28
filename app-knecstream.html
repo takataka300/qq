@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>KnecStream — Movies on Android TV, Phone & PC | KNEC Hub</title>
+<meta name="description" content="KnecStream — stream movies and series on Android TV, Android phone, iOS and PC." />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-mark">🎓</div>
+      <div>
+        <div class="logo-text">KNEC Hub</div>
+        <div class="logo-sub">Past Papers · Tools</div>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Past Papers</a>
+      <a href="kuccps.html">KUCCPS</a>
+      <a href="app.html" class="active stream">App</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero stream-hero">
+  <div class="stream-hero-grid">
+    <div>
+      <div class="stream-pill">▶ /app/knecstream · v3.2</div>
+      <h1>All your movies. <span class="grad">On every screen.</span></h1>
+      <p class="serif">KnecStream brings the world's biggest movie library to your Android TV, phone, and PC — in stunning 4K.</p>
+      <div class="stream-icons">
+        <span>📺 Android TV</span>
+        <span>📱 Phone</span>
+        <span>🖥 PC</span>
+      </div>
+      <button class="btn btn-stream btn-lg" data-stream-pay style="margin-top:26px">⬇ Get Access — KSh 300</button>
+    </div>
+    <div class="stream-img-wrap">
+      <img src="knecstream.jpg" alt="KnecStream movie app icon" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<main class="container" style="padding-top:60px">
+  <p><a href="app.html" style="color:var(--stream);font-size:13px;font-weight:600">← Back to apps</a></p>
+  <div style="text-align:center">
+    <div class="eyebrow" style="color:var(--muted-fg)">Why KnecStream</div>
+    <h2 style="font-size:clamp(26px,3vw,36px);font-weight:800;margin:8px 0 0">Built for binge-watching.</h2>
+  </div>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="icon-box">📺</div>
+      <h3>4K on Android TV</h3>
+      <p>HDR10+ playback, Chromecast built-in, optimised remote navigation.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon-box">📱</div>
+      <h3>Offline on Mobile</h3>
+      <p>Download episodes for the matatu ride. Works on Android & iOS.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon-box">🖥</div>
+      <h3>PC & Mac</h3>
+      <p>Native desktop app for Windows, macOS and Linux. No browser needed.</p>
+    </div>
+  </div>
+
+  <div class="cta-block">
+    <h3>Ready to start watching?</h3>
+    <p>One-time access fee. Lifetime app updates included.</p>
+    <button class="btn btn-stream btn-lg" data-stream-pay style="margin-top:22px">⬇ Get KnecStream</button>
+  </div>
+</main>
+
+<footer class="footer">
+  © <span id="yr"></span> KNEC Hub · Past papers, KUCCPS tools & more.
+</footer>
+
+<script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+<script src="script.js"></script>
+</body>
+</html>

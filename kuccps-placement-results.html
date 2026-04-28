@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>KUCCPS Placement Results 2025 — Check by Index Number | KNEC Hub</title>
+<meta name="description" content="Check your 2025 KUCCPS placement results instantly using your KCSE index number." />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-mark">🎓</div>
+      <div>
+        <div class="logo-text">KNEC Hub</div>
+        <div class="logo-sub">Past Papers · Tools</div>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Past Papers</a>
+      <a href="kuccps.html" class="active kuccps">KUCCPS</a>
+      <a href="app.html">App</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero kuccps-hero">
+  <div class="hero-inner" style="text-align:left">
+    <div class="hero-pill" style="border-color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.1);color:white">
+      /kuccps/placement-results
+    </div>
+    <h1 style="text-align:left;color:white;max-width:800px;margin:0">Check your KUCCPS Placement Results.</h1>
+    <p style="text-align:left;margin:18px 0 0;max-width:620px">Enter your KCSE index number and year to retrieve your placement.</p>
+  </div>
+</section>
+
+<main class="container" style="padding-top:50px">
+  <p><a href="kuccps.html" style="color:var(--kuccps);font-size:13px;font-weight:600">← Back to KUCCPS tools</a></p>
+  <section class="results-card">
+    <div class="eyebrow kuccps-eyebrow">Tool 02</div>
+    <h2 style="font-size:clamp(26px,3vw,36px);margin:6px 0 12px;font-weight:800">🎯 Check KUCCPS Placement Results</h2>
+    <p style="color:var(--muted-fg);max-width:560px">Enter your KCSE index number and exam year to retrieve your KUCCPS placement.</p>
+    <form id="placement-form" class="form-grid">
+      <div class="field">
+        <label for="idxno">KCSE Index Number</label>
+        <input id="idxno" placeholder="e.g. 12345678/001" required />
+      </div>
+      <div class="field">
+        <label for="year">Exam Year</label>
+        <input id="year" placeholder="2024" required />
+      </div>
+      <div style="display:flex;align-items:flex-end">
+        <button class="btn btn-kuccps btn-block" type="submit">Check</button>
+      </div>
+    </form>
+    <div id="placement-msg" class="placement-msg" style="display:none">
+      <span style="color:var(--kuccps);flex-shrink:0">⚠</span>
+      <div id="placement-msg-body" style="flex:1"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  © <span id="yr"></span> KNEC Hub · Past papers, KUCCPS tools & more.
+</footer>
+
+<script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+<script src="script.js"></script>
+</body>
+</html>

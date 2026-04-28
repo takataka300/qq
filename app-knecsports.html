@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>KnecSports — Live Sports on Android TV, Phone & PC | KNEC Hub</title>
+<meta name="description" content="KnecSports — stream live football, basketball, F1, rugby and more on Android TV, phone, iOS and PC." />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <div class="logo-mark">🎓</div>
+      <div>
+        <div class="logo-text">KNEC Hub</div>
+        <div class="logo-sub">Past Papers · Tools</div>
+      </div>
+    </a>
+    <nav class="nav">
+      <a href="index.html">Past Papers</a>
+      <a href="kuccps.html">KUCCPS</a>
+      <a href="app.html" class="active stream">App</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero stream-hero" style="background:linear-gradient(135deg,#062a13,#0e7c3a)">
+  <div class="stream-hero-grid">
+    <div>
+      <div class="stream-pill">⚽ /app/knecsports · v2.0</div>
+      <h1>Every match. <span class="grad" style="background:linear-gradient(90deg,#fde047,#ffffff);-webkit-background-clip:text;background-clip:text;color:transparent">Live, no buffering.</span></h1>
+      <p class="serif">EPL, La Liga, UEFA Champions League, NBA, F1, rugby and local Kenyan leagues — streamed live on KnecSports.</p>
+      <div class="stream-icons">
+        <span>⚽ Football</span>
+        <span>🏀 NBA</span>
+        <span>🏎 F1</span>
+        <span>🏉 Rugby</span>
+      </div>
+      <button class="btn btn-stream btn-lg" data-sports-pay style="margin-top:26px;background:white;color:#0e7c3a">⬇ Get Access — KSh 300</button>
+    </div>
+    <div class="stream-img-wrap">
+      <div style="width:100%;max-width:360px;margin:0 auto;aspect-ratio:1;border-radius:28px;background:linear-gradient(135deg,#0e7c3a,#062a13);display:grid;place-items:center;font-size:120px;box-shadow:0 30px 80px rgba(0,0,0,0.4)">⚽</div>
+    </div>
+  </div>
+</section>
+
+<main class="container" style="padding-top:60px">
+  <p><a href="app.html" style="color:var(--stream);font-size:13px;font-weight:600">← Back to apps</a></p>
+  <div style="text-align:center">
+    <div class="eyebrow" style="color:var(--muted-fg)">Why KnecSports</div>
+    <h2 style="font-size:clamp(26px,3vw,36px);font-weight:800;margin:8px 0 0">Live sports, zero compromise.</h2>
+  </div>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="icon-box" style="background:#0e7c3a">📡</div>
+      <h3>Live HD Streams</h3>
+      <p>Sub-2-second latency. Multi-camera angles on premium fixtures.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon-box" style="background:#0e7c3a">🔁</div>
+      <h3>Replays & Highlights</h3>
+      <p>Missed the goal? Full match replays + 3-minute highlight reels.</p>
+    </div>
+    <div class="feature-card">
+      <div class="icon-box" style="background:#0e7c3a">🌍</div>
+      <h3>All Leagues</h3>
+      <p>EPL, La Liga, UCL, NBA, F1, rugby, KPL — one app, one fee.</p>
+    </div>
+  </div>
+
+  <div class="cta-block" style="background:#0e7c3a">
+    <h3>Don't miss kick-off.</h3>
+    <p>One-time access fee. Lifetime app updates included.</p>
+    <button class="btn btn-lg" data-sports-pay style="margin-top:22px;background:white;color:#0e7c3a">⬇ Get KnecSports</button>
+  </div>
+</main>
+
+<footer class="footer">
+  © <span id="yr"></span> KNEC Hub · Past papers, KUCCPS tools & more.
+</footer>
+
+<script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
+<script src="script.js"></script>
+</body>
+</html>
