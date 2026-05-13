@@ -3,116 +3,292 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>KNEC Past Papers 2025 & 2026 — KCSE, KJSEA, KPSEA Downloads | KNEC Hub</title>
-<meta name="description" content="Download KNEC past papers 2025 and 2026: KCSE, KJSEA, KPSEA, college & TVET past papers. All Kenya National Examinations Council subjects with marking schemes." />
+<title>KNEC Hub — KCSE, TVET, University Past Papers & Revision Downloads</title>
+<meta name="description" content="Download KNEC past papers, KCSE past papers, TVET exam past papers, KCSE computer projects (Azani) and revision papers for KCSE, TVET and University degree courses." />
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
+<!-- ================= HEADER ================= -->
 <header class="header">
   <div class="header-inner">
     <a href="index.html" class="logo">
       <div class="logo-mark">🎓</div>
       <div>
         <div class="logo-text">KNEC Hub</div>
-        <div class="logo-sub">Past Papers · Tools</div>
+        <div class="logo-sub">Past Papers · Revision · Projects</div>
       </div>
     </a>
     <nav class="nav">
-      <a href="index.html" class="active knec">Past Papers</a>
+      <a href="index.html" class="active knec">Home</a>
       <a href="kuccps.html">KUCCPS</a>
       <a href="app.html">App</a>
     </nav>
   </div>
+
 </header>
 
+<!-- Mobile toggle for the vertical tab menu -->
+<button class="tabs-toggle" id="tabs-toggle" type="button" aria-expanded="false" aria-controls="main-tabs">
+  <span>📑 Browse Sections</span>
+  <span class="caret">▾</span>
+</button>
+
+<!-- ================= HERO ================= -->
 <section class="hero knec-hero">
   <div class="hero-inner">
-    <div class="hero-pill"><span style="width:6px;height:6px;border-radius:50%;background:var(--knec)"></span> 2025 & 2026 Papers Now Available</div>
-    <h1>Kenya National Examinations Council<span class="accent">Past Papers Archive</span></h1>
-    <p>The most comprehensive collection of KCSE, KJSEA, KPSEA and college past papers — with marking schemes, organised by year and subject.</p>
+    <div class="hero-pill"><span style="width:6px;height:6px;border-radius:50%;background:var(--knec)"></span> Full Set Access · KSh 1,500</div>
+    <h1>Kenya National Examinations Council<span class="accent">Past Papers & Revision Hub</span></h1>
+    <p>One place for KNEC past papers, TVET exams, KCSE revision, computer projects and university degree revision papers — all courses, marking schemes included.</p>
 
     <div class="search-wrap">
-      <input id="paper-search" class="search-input" type="text" placeholder="Search any paper — e.g. 'Physics Paper 2', 'KCSE 2026 Maths', 'CPA'…" />
+      <input id="paper-search" class="search-input" type="text" placeholder="Search any paper — e.g. 'Physics Paper 2', 'CPA', 'BCom Year 2'…" />
       <div id="search-results" class="search-results" style="display:none"></div>
     </div>
 
     <div class="hero-tags">
-      <span class="tag">📚 1,500+ papers</span>
+      <span class="tag">📚 5,000+ papers</span>
       <span class="tag">✓ Marking schemes</span>
       <span class="tag">⚡ Instant download</span>
+      <span class="tag">💵 KSh 1,500 full set</span>
     </div>
   </div>
 </section>
 
-<main class="container">
-  <section class="section">
-    <div class="section-header">
-      <div class="section-icon">📖</div>
-      <div>
-        <div class="eyebrow">KCSE · 2025</div>
-        <h2>KCSE Past Papers 2025</h2>
-        <p class="desc">Complete subject coverage for the 2025 Kenya Certificate of Secondary Education exam, including marking schemes.</p>
-      </div>
-    </div>
-    <div class="paper-grid" id="kcse-grid"></div>
-  </section>
+<!-- ================= MAIN ================= -->
+<main class="container layout">
 
-  <section class="section">
-    <div class="section-header">
-      <div class="section-icon">📖</div>
-      <div>
-        <div class="eyebrow">KCSE · 2026</div>
-        <h2>KCSE Past Papers 2026</h2>
-        <p class="desc">All 2026 KCSE subject papers — every paper of every subject, plus marking schemes.</p>
-      </div>
-    </div>
-    <div class="paper-grid" id="kcse2026-grid"></div>
-  </section>
+  <!-- Vertical tab sidebar (mobile: collapsible, top→bottom) -->
+  <aside class="tabs-side" id="main-tabs" role="tablist">
+    <button class="tab active" data-tab="knec-past"        role="tab">📚 KNEC Past Papers</button>
+    <button class="tab"        data-tab="knec-download"    role="tab">⬇️ KNEC Download</button>
+    <button class="tab"        data-tab="tvet-past"        role="tab">🛠 KNEC TVET Exam Past Papers</button>
+    <button class="tab"        data-tab="kcse-past"        role="tab">📝 KCSE KNEC Past Papers</button>
+    <button class="tab"        data-tab="kcse-projects"    role="tab">💻 KCSE Computer Projects</button>
+    <button class="tab"        data-tab="tvet-revision"    role="tab">📘 TVET Revision Papers</button>
+    <button class="tab"        data-tab="kcse-revision"    role="tab">📗 KCSE Revision Papers</button>
+    <button class="tab"        data-tab="uni-revision"     role="tab">🎓 University Degree Revision</button>
+  </aside>
 
-  <section class="section">
-    <div class="section-header">
-      <div class="section-icon">📄</div>
-      <div>
-        <div class="eyebrow">KJSEA · Grade 9</div>
-        <h2>KJSEA 2025 Past Papers</h2>
-        <p class="desc">Kenya Junior School Education Assessment papers under the Competency Based Curriculum (CBC).</p>
-      </div>
-    </div>
-    <div class="paper-grid" id="kjsea-grid"></div>
-  </section>
+  <div class="tabs-content">
 
-  <section class="section">
-    <div class="section-header">
-      <div class="section-icon">📄</div>
-      <div>
-        <div class="eyebrow">KPSEA · Grade 6</div>
-        <h2>KPSEA 2025 Past Papers</h2>
-        <p class="desc">Kenya Primary School Education Assessment — full subject papers for Grade 6 transition.</p>
+  <!-- TAB 1: KNEC Past Papers (the original home page content) -->
+  <div class="tab-panel active" id="panel-knec-past">
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon">📖</div>
+        <div>
+          <div class="eyebrow">KCSE · 2025</div>
+          <h2>KCSE Past Papers 2025</h2>
+          <p class="desc">Complete subject coverage for the 2025 Kenya Certificate of Secondary Education exam, including marking schemes.</p>
+        </div>
       </div>
-    </div>
-    <div class="paper-grid" id="kpsea-grid"></div>
-  </section>
+      <div class="paper-grid" id="kcse-grid"></div>
+    </section>
 
-  <section class="section">
-    <div class="section-header">
-      <div class="section-icon">🔍</div>
-      <div>
-        <div class="eyebrow">Colleges & TVET · 2025</div>
-        <h2>College Past Papers 2025</h2>
-        <p class="desc">KASNEB, KMTC, KIMC, TVET and Diploma past papers — most-searched programmes in Kenya.</p>
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon">📖</div>
+        <div>
+          <div class="eyebrow">KCSE · 2026</div>
+          <h2>KCSE Past Papers 2026</h2>
+          <p class="desc">All 2026 KCSE subject papers — every paper of every subject, plus marking schemes.</p>
+        </div>
       </div>
-    </div>
-    <div class="paper-grid" id="college-grid"></div>
-  </section>
+      <div class="paper-grid" id="kcse2026-grid"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon">📄</div>
+        <div>
+          <div class="eyebrow">KJSEA · Grade 9</div>
+          <h2>KJSEA 2025 Past Papers</h2>
+          <p class="desc">Kenya Junior School Education Assessment papers under the Competency Based Curriculum (CBC).</p>
+        </div>
+      </div>
+      <div class="paper-grid" id="kjsea-grid"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon">📄</div>
+        <div>
+          <div class="eyebrow">KPSEA · Grade 6</div>
+          <h2>KPSEA 2025 Past Papers</h2>
+          <p class="desc">Kenya Primary School Education Assessment — full subject papers for Grade 6 transition.</p>
+        </div>
+      </div>
+      <div class="paper-grid" id="kpsea-grid"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon">🔍</div>
+        <div>
+          <div class="eyebrow">Colleges & TVET · 2025</div>
+          <h2>College Past Papers 2025</h2>
+          <p class="desc">KASNEB, KMTC, KIMC, TVET and Diploma past papers — most-searched programmes in Kenya.</p>
+        </div>
+      </div>
+      <div class="paper-grid" id="college-grid"></div>
+    </section>
+  </div>
+
+  <!-- TAB 2: KNEC Download -->
+  <div class="tab-panel" id="panel-knec-download">
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon">⬇️</div>
+        <div>
+          <div class="eyebrow">KNEC · Full Archive</div>
+          <h2>KNEC Download Centre</h2>
+          <p class="desc">Bulk-download KNEC papers, marking schemes, syllabi and circulars. One payment of KSh 1,500 unlocks the full set.</p>
+        </div>
+      </div>
+      <div class="paper-grid" id="knec-download-grid"></div>
+    </section>
+  </div>
+
+  <!-- TAB 3: KNEC TVET Exam Past Papers Download -->
+  <div class="tab-panel" id="panel-tvet-past">
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon">🛠</div>
+        <div>
+          <div class="eyebrow">TVET · KNEC Exams</div>
+          <h2>KNEC TVET Exam Past Papers</h2>
+          <p class="desc">All TVET CDACC and KNEC TVET past papers — Artisan, Craft, Diploma, Higher Diploma — every trade.</p>
+        </div>
+      </div>
+      <div class="paper-grid" id="tvet-past-grid"></div>
+    </section>
+  </div>
+
+  <!-- TAB 4: KCSE KNEC Past Papers (kcse-only download) -->
+  <div class="tab-panel" id="panel-kcse-past">
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon">📝</div>
+        <div>
+          <div class="eyebrow">KCSE · KNEC</div>
+          <h2>KCSE KNEC Past Papers</h2>
+          <p class="desc">Full KCSE archive (2010 → 2026) — every subject, every paper, with marking schemes.</p>
+        </div>
+      </div>
+      <div class="paper-grid" id="kcse-only-grid"></div>
+    </section>
+  </div>
+
+  <!-- TAB 5: KCSE Computer Projects (dropdown) -->
+  <div class="tab-panel" id="panel-kcse-projects">
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon">💻</div>
+        <div>
+          <div class="eyebrow">KCSE · Paper 3 Projects</div>
+          <h2>KCSE Computer Projects</h2>
+          <p class="desc">Pick a project from the dropdown to view full information and download the complete documentation + database files.</p>
+        </div>
+      </div>
+
+      <div class="tool-select-wrap" style="max-width:600px">
+        <div class="tool-select-label">Select project</div>
+        <select class="tool-select" id="kcse-project-select">
+          <option value="">— Choose a KCSE Computer Project —</option>
+          <option value="azani">Azani KCSE Computer Project</option>
+        </select>
+      </div>
+
+      <!-- Azani info card -->
+      <div id="project-azani" class="project-info" style="display:none">
+        <div class="results-card" style="margin-top:24px">
+          <div class="eyebrow" style="color:var(--knec)">Featured Project</div>
+          <h2 style="margin:6px 0 10px">Azani KCSE Computer Project</h2>
+          <p style="color:var(--muted-fg);max-width:720px">
+            <b>Azani</b> is a complete KCSE Paper 3 Computer Studies project — a school-management style
+            information system covering student registration, fees, marks entry, report generation and
+            backup. It is fully compliant with the KNEC Paper 3 marking rubric: problem definition,
+            user requirements, design (DFDs, ERDs), implementation (Microsoft Access / VB), testing,
+            user manual and documentation are all included.
+          </p>
+
+          <ul class="bullet-list">
+            <li>Complete documentation booklet (~60 pages, ready for printing)</li>
+            <li>Functional Microsoft Access database with forms, queries, reports & macros</li>
+            <li>Sample data + filled report templates (matches KNEC marking scheme)</li>
+            <li>Entity Relationship Diagram (ERD) and Data Flow Diagrams (DFDs)</li>
+            <li>Step-by-step user manual with screenshots</li>
+            <li>Editable — change the school name, logo, colors before submission</li>
+          </ul>
+
+          <button class="btn btn-knec btn-lg" style="margin-top:20px" data-pay="Azani KCSE Computer Project">
+            Unlock & Download — KSh 1,500
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- TAB 6: TVET Revision Papers (all courses) -->
+  <div class="tab-panel" id="panel-tvet-revision">
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon">📘</div>
+        <div>
+          <div class="eyebrow">TVET · Revision</div>
+          <h2>TVET Revision Papers — All Courses</h2>
+          <p class="desc">Topical revision papers, model exams and notes for every TVET course offered in Kenya.</p>
+        </div>
+      </div>
+      <div class="paper-grid" id="tvet-rev-grid"></div>
+    </section>
+  </div>
+
+  <!-- TAB 7: KCSE Revision Papers -->
+  <div class="tab-panel" id="panel-kcse-revision">
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon">📗</div>
+        <div>
+          <div class="eyebrow">KCSE · Revision</div>
+          <h2>KCSE Revision Papers — All Subjects</h2>
+          <p class="desc">Topical questions, mock papers, end-term exams and marking schemes for every KCSE subject.</p>
+        </div>
+      </div>
+      <div class="paper-grid" id="kcse-rev-grid"></div>
+    </section>
+  </div>
+
+  <!-- TAB 8: University Degree Revision Papers -->
+  <div class="tab-panel" id="panel-uni-revision">
+    <section class="section">
+      <div class="section-header">
+        <div class="section-icon">🎓</div>
+        <div>
+          <div class="eyebrow">University · Degree Revision</div>
+          <h2>University Degree Revision Papers — All Courses</h2>
+          <p class="desc">Past exam papers and revision notes from Kenyan public & private universities — every degree programme.</p>
+        </div>
+      </div>
+      <div class="paper-grid" id="uni-rev-grid"></div>
+    </section>
+  </div>
+
+  </div>
 </main>
 
+<!-- ================= FOOTER ================= -->
 <footer class="footer">
-  © <span id="yr"></span> KNEC Hub · Past papers, KUCCPS tools & more.
+  © <span id="yr"></span> KNEC Hub · Past papers, revision & projects · Full set KSh 1,500 · M-Pesa Till 8494376
 </footer>
+
+<!-- Floating WhatsApp button (every page) -->
+<a id="wa-float" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp assistance">
+  <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor"><path d="M19.11 17.21c-.3-.15-1.78-.88-2.05-.98-.27-.1-.47-.15-.67.15-.2.3-.77.98-.94 1.18-.17.2-.35.22-.65.07-.3-.15-1.27-.47-2.42-1.5-.9-.8-1.5-1.78-1.67-2.08-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49 0 1.47 1.07 2.89 1.22 3.09.15.2 2.1 3.2 5.08 4.49.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.08 1.78-.73 2.03-1.43.25-.7.25-1.3.18-1.43-.07-.13-.27-.2-.57-.35zM16.02 4C9.4 4 4 9.4 4 16.02c0 2.12.55 4.18 1.6 6L4 28l6.13-1.6a12 12 0 0 0 5.89 1.5h.01c6.62 0 12.02-5.4 12.02-12.02C28.05 9.4 22.65 4 16.02 4z"/></svg>
+</a>
 
 <script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
 <script src="script.js"></script>
-  <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
