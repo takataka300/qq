@@ -1,12 +1,14 @@
-// KNEC Hub — static site shared JS (updated: tabs, KSh 1500, Till 8494376,
-// M-Pesa message paste-and-submit, floating WhatsApp).
+// KNEC Hub — multi-page shared JS
+// Each section page sets <body data-page="..."> and the script renders that
+// section's chips. Shared: header (already in HTML), modal, WhatsApp float.
 (function () {
 
   // ============= CONFIG =============
-  const TILL = "8494376";          // Pay-to till (per request)
+  const TILL = "8494376";
   const WHATSAPP_DISPLAY = "0734002689";
-  const WHATSAPP_INTL = "254734002689"; // wa.me format (no leading 0)
-  const PRICE = 1500;              // KSh full set
+  const WHATSAPP_INTL = "254734002689";
+  const PRICE = 1500;
+  const PAPER_PREVIEW_IMG = "paper-preview.jpg";
 
   // ============= DATA =============
   const KCSE_SUBJECTS = [
@@ -58,7 +60,6 @@
     "KIMC Diploma in Journalism","Diploma in Cooperative Management","Diploma in Agriculture"
   ];
 
-  // KNEC general download archive
   const KNEC_DOWNLOAD = [
     "KNEC KCSE Marking Schemes (Full)","KNEC KCSE Past Papers Bundle (2010–2026)",
     "KNEC Syllabus — Secondary","KNEC Syllabus — Primary",
@@ -70,7 +71,6 @@
     "KNEC Mock Examinations","KNEC Confidential Instructions Archive"
   ];
 
-  // KNEC TVET Exam past papers
   const TVET_PAST = [
     "Artisan in Plumbing","Artisan in Masonry","Artisan in Welding","Artisan in Carpentry",
     "Craft in Electrical Installation","Craft in Motor Vehicle Mechanics","Craft in Refrigeration",
@@ -85,15 +85,8 @@
     "CDACC Food & Beverage Level 6","CDACC Solar PV Installation Level 6"
   ];
 
-  // KCSE-only past papers (years × subjects, condensed list)
-  const KCSE_ONLY = (function(){
-    const years = ["2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"];
-    const out = [];
-    years.forEach(y => KCSE_SUBJECTS.forEach(s => out.push(`KCSE ${y} — ${s}`)));
-    return out;
-  })();
+  const KCSE_ONLY_YEARS = ["2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"];
 
-  // TVET revision (all courses)
   const TVET_REVISION = [
     "ICT Diploma — Topical Revision","ICT Diploma — Mock Papers","ICT — Programming Notes",
     "Electrical Eng. — Topical Revision","Electrical Eng. — Mock Papers","Electrical — Wiring Notes",
@@ -112,18 +105,12 @@
     "Nursing (KMTC) — Topical","Clinical Medicine — Topical","Pharmacy — Topical",
     "Medical Lab Tech — Topical","Public Health — Topical","Nutrition & Dietetics — Topical"
   ];
-
-  // KCSE revision (all subjects)
   const KCSE_REVISION = KCSE_SUBJECTS.map(s => s + " — Revision Bundle");
-
-  // University degree revision (all courses)
   const UNI_REVISION = [
-    "BSc Computer Science — Past Papers","BSc Software Engineering — Past Papers",
-    "BSc Information Technology — Past Papers","BSc Information Systems — Past Papers",
-    "BSc Mathematics — Past Papers","BSc Statistics — Past Papers","BSc Actuarial Science — Past Papers",
-    "BSc Economics — Past Papers","BSc Physics — Past Papers","BSc Chemistry — Past Papers",
-    "BSc Biology — Past Papers","BSc Biochemistry — Past Papers","BSc Microbiology — Past Papers",
-    "BSc Nursing — Past Papers","BSc Public Health — Past Papers","BSc Nutrition — Past Papers",
+    "BSc Computer Science","BSc Software Engineering","BSc Information Technology",
+    "BSc Information Systems","BSc Mathematics","BSc Statistics","BSc Actuarial Science",
+    "BSc Economics","BSc Physics","BSc Chemistry","BSc Biology","BSc Biochemistry",
+    "BSc Microbiology","BSc Nursing","BSc Public Health","BSc Nutrition",
     "BSc Medical Laboratory Sciences","Bachelor of Pharmacy (BPharm)",
     "Bachelor of Medicine & Surgery (MBChB)","Bachelor of Dental Surgery (BDS)",
     "Bachelor of Veterinary Medicine","Bachelor of Agriculture",
@@ -146,30 +133,53 @@
     "Bachelor of Theology","Bachelor of Development Studies","Bachelor of Criminology"
   ];
 
-  // Combined search index
-  const ALL_PAPERS = [];
-  ["2025","2026"].forEach(yr => KCSE_SUBJECTS.forEach(s => ALL_PAPERS.push({
-    name: `KCSE ${yr} — ${s}`, label: `${s} KCSE ${yr}`, group: "KCSE", year: yr
-  })));
-  KJSEA_PAPERS.forEach(s => ALL_PAPERS.push({ name: `KJSEA 2025 — ${s}`, label: `${s} KJSEA 2025`, group: "KJSEA", year: "2025" }));
-  KPSEA_PAPERS.forEach(s => ALL_PAPERS.push({ name: `KPSEA 2025 — ${s}`, label: `${s} KPSEA 2025`, group: "KPSEA", year: "2025" }));
-  COLLEGE_PAPERS.forEach(s => ALL_PAPERS.push({ name: `College 2025 — ${s}`, label: s, group: "College", year: "2025" }));
-  TVET_PAST.forEach(s => ALL_PAPERS.push({ name: `TVET — ${s}`, label: s, group: "TVET", year: "" }));
-  UNI_REVISION.forEach(s => ALL_PAPERS.push({ name: `University — ${s}`, label: s, group: "University", year: "" }));
+  // KUCCPS sample data (used on kuccps.html)
+  const KUCCPS_RESOURCES = [
+    "KUCCPS Cluster Points Calculator Guide","KUCCPS Course Cut-off Points (latest)",
+    "KUCCPS Application Step-by-step PDF","KUCCPS Revision of Choices Guide",
+    "KUCCPS Inter-Institution Transfer Guide","KUCCPS TVET Placement Guide",
+    "KUCCPS Universities List & Codes","KUCCPS Diploma Programmes List",
+    "KUCCPS Certificate Programmes List","KUCCPS Self-Sponsored Placement Guide",
+    "KUCCPS KMTC Placement Guide","KUCCPS Teacher Training Placement Guide"
+  ];
 
-  window.KNEC_DATA = { KCSE_SUBJECTS, KJSEA_PAPERS, KPSEA_PAPERS, COLLEGE_PAPERS, ALL_PAPERS };
+  // ============= PAPER NAMING =============
+  // User-requested format: "KCSE 2026 English Paper 1 2026"
+  function kcseName(year, subject) { return `KCSE ${year} ${subject} ${year}`; }
+
+  // ============= SEARCH INDEX =============
+  const ALL_PAPERS = [];
+  ["2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"].forEach(yr =>
+    KCSE_SUBJECTS.forEach(s => ALL_PAPERS.push({
+      name: kcseName(yr, s), label: `${s} ${yr}`, group: "KCSE", year: yr
+    }))
+  );
+  KJSEA_PAPERS.forEach(s => ALL_PAPERS.push({ name: `KJSEA 2025 ${s} 2025`, label: `${s} KJSEA 2025`, group: "KJSEA", year: "2025" }));
+  KPSEA_PAPERS.forEach(s => ALL_PAPERS.push({ name: `KPSEA 2025 ${s} 2025`, label: `${s} KPSEA 2025`, group: "KPSEA", year: "2025" }));
+  COLLEGE_PAPERS.forEach(s => ALL_PAPERS.push({ name: `College 2025 ${s}`, label: s, group: "College", year: "2025" }));
+  TVET_PAST.forEach(s => ALL_PAPERS.push({ name: `KNEC TVET ${s}`, label: s, group: "TVET", year: "" }));
+  UNI_REVISION.forEach(s => ALL_PAPERS.push({ name: `University Revision ${s}`, label: s, group: "University", year: "" }));
 
   const downloadIcon = '<svg class="icn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>';
 
-  // ============= PAY MODAL =============
+  // ============= MODAL =============
   function buildModal() {
     if (document.getElementById("pay-modal")) return;
     const html = `
       <div class="modal-backdrop" id="pay-modal" role="dialog" aria-modal="true">
         <div class="modal" onclick="event.stopPropagation()">
           <div class="modal-icon">📱</div>
-          <h3>Unlock Full Set Access</h3>
+          <h3 id="pay-title">Unlock Full Set Access</h3>
           <p class="modal-desc">To download <span id="pay-item" style="font-weight:600;color:var(--fg)"></span>, pay <b>KSh ${PRICE}</b> via M-Pesa.</p>
+
+          <div class="paper-preview" aria-hidden="true">
+            <span class="preview-tag">PREVIEW</span>
+            <img src="${PAPER_PREVIEW_IMG}" alt="Blurred preview of the paper" />
+            <div class="lock-overlay">
+              <span class="lock-icon">🔒</span>
+              <span class="lock-label">Locked — pay KSh ${PRICE} to unlock</span>
+            </div>
+          </div>
 
           <div class="till-card">
             <div class="till-row">
@@ -194,7 +204,7 @@
 
           <label class="mpesa-label" for="mpesa-msg">Paste your M-Pesa confirmation message</label>
           <textarea id="mpesa-msg" class="mpesa-input"
-            placeholder="e.g. TGH7K8L9MN Confirmed. Ksh1,500.00 sent to KNEC HUB Till 8494376 on 5/13/26 at 2:14 PM. New M-PESA balance is Ksh..."></textarea>
+            placeholder="e.g. TGH7K8L9MN Confirmed. Ksh1,500.00 sent to KNEC HUB Till 8494376 on 5/13/26 at 2:14 PM..."></textarea>
           <div class="mpesa-error" id="mpesa-error">Please paste a valid M-Pesa confirmation message (must contain a code and "Ksh ${PRICE}").</div>
           <p class="mpesa-hint">Your message is verified instantly. Submit to begin your download.</p>
 
@@ -214,7 +224,6 @@
     document.getElementById("pay-modal").addEventListener("click", closeModal);
     document.getElementById("pay-close").addEventListener("click", closeModal);
     document.getElementById("pay-submit").addEventListener("click", submitMpesa);
-
     document.getElementById("copy-btn").addEventListener("click", async () => {
       try {
         await navigator.clipboard.writeText(TILL);
@@ -223,7 +232,6 @@
         setTimeout(() => (b.textContent = old), 1600);
       } catch {}
     });
-
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
   }
 
@@ -231,26 +239,18 @@
     const msg = document.getElementById("mpesa-msg").value.trim();
     const err = document.getElementById("mpesa-error");
     const ok  = document.getElementById("mpesa-success");
-    // Lightweight validation: M-Pesa codes are 10 chars alphanumeric, must mention 1500 or 1,500
     const hasCode = /\b[A-Z0-9]{10}\b/i.test(msg);
     const hasAmt  = /(ksh|kes)\s*1[, ]?500/i.test(msg);
-    if (!hasCode || !hasAmt) {
-      err.style.display = "block";
-      return;
-    }
+    if (!hasCode || !hasAmt) { err.style.display = "block"; return; }
     err.style.display = "none";
     ok.style.display = "block";
     document.getElementById("pay-submit").disabled = true;
     document.getElementById("pay-submit").textContent = "Processing…";
-
     const item = document.getElementById("pay-item").textContent;
-    // Notify support automatically via WhatsApp link (opens in new tab as a backup)
     const waMsg = encodeURIComponent(
       `Hi KNEC Hub, I have paid KSh ${PRICE} for: ${item}.\n\nM-Pesa message:\n${msg}\n\nPlease send my download link.`
     );
     document.getElementById("dl-link").href = `https://wa.me/${WHATSAPP_INTL}?text=${waMsg}`;
-
-    // Trigger a "download begin" — opens the WhatsApp delivery link.
     setTimeout(() => {
       window.open(`https://wa.me/${WHATSAPP_INTL}?text=${waMsg}`, "_blank", "noopener");
     }, 800);
@@ -258,15 +258,12 @@
 
   function openModal(itemName) {
     buildModal();
-    // Detect a 4-digit year in the item name (e.g. "KCSE 2015 — Mathematics Paper 1")
     const yearMatch = String(itemName).match(/\b(19|20)\d{2}\b/);
     const displayName = yearMatch
       ? `the full ${yearMatch[0]} set (includes ${itemName})`
       : itemName;
     document.getElementById("pay-item").textContent = displayName;
-
-    // Update modal heading + button to reflect "full set" context
-    const titleEl = document.querySelector("#pay-modal h3");
+    const titleEl = document.getElementById("pay-title");
     const submitBtn = document.getElementById("pay-submit");
     if (yearMatch) {
       titleEl.textContent = `Download Full ${yearMatch[0]} Set`;
@@ -275,7 +272,6 @@
       titleEl.textContent = "Unlock Full Set Access";
       submitBtn.textContent = "Submit & Download";
     }
-
     document.getElementById("mpesa-msg").value = "";
     document.getElementById("mpesa-error").style.display = "none";
     document.getElementById("mpesa-success").style.display = "none";
@@ -295,113 +291,100 @@
     if (!el) return;
     el.innerHTML = papers.map((s) => {
       const name = makeName ? makeName(s) : s;
-      return `<button class="paper-chip" data-name="${name.replace(/"/g, "&quot;")}">${escapeHtml(s)}${downloadIcon}</button>`;
+      return `<button class="paper-chip" data-name="${escapeAttr(name)}">${escapeHtml(name)}${downloadIcon}</button>`;
     }).join("");
     el.querySelectorAll(".paper-chip").forEach((b) => {
       b.addEventListener("click", () => openModal(b.getAttribute("data-name")));
     });
   }
 
-  // ============= TABS =============
-  function initTabs() {
-    const tabs = document.querySelectorAll(".tab[data-tab]");
-    if (!tabs.length) return;
+  // ============= MOBILE SIDEBAR TOGGLE =============
+  function initSidebarToggle() {
     const sidebar = document.getElementById("main-tabs");
     const toggle  = document.getElementById("tabs-toggle");
-
-    if (toggle && sidebar) {
-      toggle.addEventListener("click", () => {
-        const open = sidebar.classList.toggle("open");
-        toggle.classList.toggle("open", open);
-        toggle.setAttribute("aria-expanded", open ? "true" : "false");
-      });
-    }
-
-    tabs.forEach(t => {
-      t.addEventListener("click", () => {
-        tabs.forEach(x => x.classList.remove("active"));
-        t.classList.add("active");
-        const id = t.getAttribute("data-tab");
-        document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
-        const panel = document.getElementById("panel-" + id);
-        if (panel) panel.classList.add("active");
-        // On mobile, collapse the sidebar after selecting and scroll to top of content
-        if (window.matchMedia("(max-width: 820px)").matches) {
-          if (sidebar) sidebar.classList.remove("open");
-          if (toggle)  { toggle.classList.remove("open"); toggle.setAttribute("aria-expanded","false"); }
-          window.scrollTo({ top: (toggle ? toggle.offsetTop : 0), behavior: "smooth" });
-        }
-      });
+    if (!toggle || !sidebar) return;
+    toggle.addEventListener("click", () => {
+      const open = sidebar.classList.toggle("open");
+      toggle.classList.toggle("open", open);
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
     });
   }
 
-  // ============= INDEX PAGE =============
-  function initIndexPage() {
-    if (!document.getElementById("kcse-grid")) return;
+  // ============= PER-PAGE INIT =============
+  function initPage() {
+    const page = document.body.getAttribute("data-page");
 
-    // Tab 1
-    renderChips("kcse-grid",       KCSE_SUBJECTS, s => "KCSE 2025 — " + s);
-    renderChips("kcse2026-grid",   KCSE_SUBJECTS, s => "KCSE 2026 — " + s);
-    renderChips("kjsea-grid",      KJSEA_PAPERS,  s => "KJSEA 2025 — " + s);
-    renderChips("kpsea-grid",      KPSEA_PAPERS,  s => "KPSEA 2025 — " + s);
-    renderChips("college-grid",    COLLEGE_PAPERS, s => "College 2025 — " + s);
-
-    // Other tabs
-    renderChips("knec-download-grid", KNEC_DOWNLOAD, s => "KNEC Download — " + s);
-    renderChips("tvet-past-grid",     TVET_PAST,     s => "KNEC TVET — " + s);
-    renderChips("kcse-only-grid",     KCSE_ONLY);
-    renderChips("tvet-rev-grid",      TVET_REVISION, s => "TVET Revision — " + s);
-    renderChips("kcse-rev-grid",      KCSE_REVISION, s => "KCSE Revision — " + s);
-    renderChips("uni-rev-grid",       UNI_REVISION,  s => "University Revision — " + s);
-
-    // KCSE Computer Projects dropdown
-    const sel = document.getElementById("kcse-project-select");
-    if (sel) {
-      sel.addEventListener("change", () => {
-        document.querySelectorAll(".project-info").forEach(p => p.style.display = "none");
-        if (sel.value) {
-          const card = document.getElementById("project-" + sel.value);
-          if (card) card.style.display = "block";
-        }
+    if (page === "knec-past") {
+      renderChips("kcse2025-grid", KCSE_SUBJECTS, s => kcseName("2025", s));
+      renderChips("kcse2026-grid", KCSE_SUBJECTS, s => kcseName("2026", s));
+      renderChips("kjsea-grid",    KJSEA_PAPERS,  s => `KJSEA 2025 ${s} 2025`);
+      renderChips("kpsea-grid",    KPSEA_PAPERS,  s => `KPSEA 2025 ${s} 2025`);
+      renderChips("college-grid",  COLLEGE_PAPERS, s => `College 2025 ${s}`);
+    }
+    if (page === "knec-download") renderChips("knec-download-grid", KNEC_DOWNLOAD, s => `KNEC Download ${s}`);
+    if (page === "tvet-past")     renderChips("tvet-past-grid",     TVET_PAST,     s => `KNEC TVET ${s}`);
+    if (page === "kcse-past") {
+      // Render a section per year, all 2014–2026
+      KCSE_ONLY_YEARS.slice().reverse().forEach(yr => {
+        const grid = document.getElementById(`kcse-yr-${yr}`);
+        if (grid) renderChips(`kcse-yr-${yr}`, KCSE_SUBJECTS, s => kcseName(yr, s));
       });
+    }
+    if (page === "tvet-revision") renderChips("tvet-rev-grid", TVET_REVISION, s => `TVET Revision ${s}`);
+    if (page === "kcse-revision") renderChips("kcse-rev-grid", KCSE_REVISION, s => `KCSE Revision ${s}`);
+    if (page === "uni-revision")  renderChips("uni-rev-grid",  UNI_REVISION,  s => `University Revision ${s} — Past Papers`);
+    if (page === "kuccps")        renderChips("kuccps-grid",   KUCCPS_RESOURCES, s => `KUCCPS ${s}`);
+
+    if (page === "kcse-projects") {
+      const sel = document.getElementById("kcse-project-select");
+      if (sel) {
+        sel.addEventListener("change", () => {
+          document.querySelectorAll(".project-info").forEach(p => p.style.display = "none");
+          if (sel.value) {
+            const card = document.getElementById("project-" + sel.value);
+            if (card) card.style.display = "block";
+          }
+        });
+      }
       document.querySelectorAll("[data-pay]").forEach(b => {
         b.addEventListener("click", () => openModal(b.getAttribute("data-pay")));
       });
     }
 
-    // Search
+    // Search (only present on the home/index page)
     const input = document.getElementById("paper-search");
     const out   = document.getElementById("search-results");
-    if (!input || !out) return;
-    input.addEventListener("input", () => {
-      const q = input.value.trim();
-      if (!q) { out.innerHTML = ""; out.style.display = "none"; return; }
-      const ql = q.toLowerCase();
-      const matches = ALL_PAPERS.filter(p =>
-        (p.label + " " + p.name + " " + p.group + " " + p.year).toLowerCase().includes(ql)
-      ).slice(0, 14);
-      out.style.display = "block";
-      if (matches.length) {
-        out.innerHTML = `<div class="heading">${matches.length} match${matches.length === 1 ? "" : "es"} — click to unlock</div>` +
-          matches.map(m => `
-            <button class="result-row" data-name="${m.name.replace(/"/g, "&quot;")}">
-              <span><span class="badge">${m.group}${m.year ? " " + m.year : ""}</span><span style="font-weight:500">${escapeHtml(m.label)}</span></span>
+    if (input && out) {
+      input.addEventListener("input", () => {
+        const q = input.value.trim();
+        if (!q) { out.innerHTML = ""; out.style.display = "none"; return; }
+        const ql = q.toLowerCase();
+        const matches = ALL_PAPERS.filter(p =>
+          (p.label + " " + p.name + " " + p.group + " " + p.year).toLowerCase().includes(ql)
+        ).slice(0, 14);
+        out.style.display = "block";
+        if (matches.length) {
+          out.innerHTML = `<div class="heading">${matches.length} match${matches.length === 1 ? "" : "es"} — click to unlock</div>` +
+            matches.map(m => `
+              <button class="result-row" data-name="${escapeAttr(m.name)}">
+                <span><span class="badge">${m.group}${m.year ? " " + m.year : ""}</span><span style="font-weight:500">${escapeHtml(m.label)}</span></span>
+                ${downloadIcon}
+              </button>`).join("");
+          out.querySelectorAll(".result-row").forEach(b =>
+            b.addEventListener("click", () => openModal(b.getAttribute("data-name")))
+          );
+        } else {
+          out.innerHTML = `
+            <button class="result-row" id="request-paper">
+              <span><span class="badge">Request</span><span>Can't find "${escapeHtml(q)}"? Click to request — KSh ${PRICE} unlocks delivery within 24 hrs.</span></span>
               ${downloadIcon}
-            </button>`).join("");
-        out.querySelectorAll(".result-row").forEach(b =>
-          b.addEventListener("click", () => openModal(b.getAttribute("data-name")))
-        );
-      } else {
-        out.innerHTML = `
-          <button class="result-row" id="request-paper">
-            <span><span class="badge">Request</span><span>Can't find "${escapeHtml(q)}"? Click to request — KSh ${PRICE} unlocks delivery within 24 hrs.</span></span>
-            ${downloadIcon}
-          </button>`;
-        document.getElementById("request-paper").addEventListener("click", () =>
-          openModal('Request paper: "' + q + '"')
-        );
-      }
-    });
+            </button>`;
+          document.getElementById("request-paper").addEventListener("click", () =>
+            openModal('Request paper: "' + q + '"')
+          );
+        }
+      });
+    }
   }
 
   // ============= WHATSAPP FLOAT =============
@@ -416,10 +399,12 @@
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   }
+  function escapeAttr(s) { return escapeHtml(s); }
 
   document.addEventListener("DOMContentLoaded", () => {
-    initTabs();
-    initIndexPage();
+    initSidebarToggle();
+    initPage();
     initWhatsAppFloat();
+    const yr = document.getElementById("yr"); if (yr) yr.textContent = new Date().getFullYear();
   });
 })();

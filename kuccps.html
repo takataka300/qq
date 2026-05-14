@@ -1,65 +1,227 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>KUCCPS Tools 2025 — Course Finder & Placement Results | KNEC Hub</title>
-<meta name="description" content="KUCCPS Course Finder and Placement Results — pick the tool you need." />
-<link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KUCCPS Placement Results Portal</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+  body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fff 0%, #ffe5e5 100%);
+    color: #2b2b2b;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    background: #c8102e;
+    color: #fff;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 4px 12px rgba(200,16,46,0.25);
+  }
+  header .logo {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: #fff; color: #c8102e;
+    display: grid; place-items: center;
+    font-weight: 800; font-size: 20px;
+  }
+  header h1 { font-size: 20px; letter-spacing: 0.5px; }
+  header p { font-size: 12px; opacity: 0.9; }
+
+  main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+  .card {
+    background: #fff;
+    border: 2px solid #c8102e;
+    border-radius: 16px;
+    padding: 36px 32px;
+    width: 100%;
+    max-width: 460px;
+    box-shadow: 0 18px 40px rgba(200,16,46,0.18);
+    text-align: center;
+  }
+  .card h2 {
+    color: #c8102e;
+    margin-bottom: 8px;
+    font-size: 22px;
+  }
+  .card p.sub {
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 22px;
+  }
+  label {
+    display: block;
+    text-align: left;
+    margin: 12px 0 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+  }
+  input, select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: 0.2s;
+  }
+  input:focus, select:focus {
+    outline: none;
+    border-color: #c8102e;
+    box-shadow: 0 0 0 3px rgba(200,16,46,0.15);
+  }
+  button.check {
+    margin-top: 22px;
+    width: 100%;
+    background: #c8102e;
+    color: #fff;
+    padding: 13px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  button.check:hover { background: #a00d24; transform: translateY(-1px); }
+
+  .result {
+    margin-top: 24px;
+    padding: 24px 18px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #fff 0%, #ffeaea 100%);
+    border: 2px dashed #c8102e;
+    display: none;
+    animation: pop 0.5s ease;
+  }
+  .result.show { display: block; }
+  @keyframes pop {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  .cap {
+    font-size: 56px;
+    margin-bottom: 8px;
+    display: inline-block;
+    animation: bounce 1.2s infinite;
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(-8px); }
+  }
+  .result h3 { color: #c8102e; margin-bottom: 6px; }
+  .result p  { color: #333; font-size: 14px; line-height: 1.5; }
+
+  /* WhatsApp floating button */
+  .wa-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #25D366;
+    color: #fff;
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    box-shadow: 0 8px 20px rgba(37,211,102,0.45);
+    text-decoration: none;
+    transition: transform 0.2s;
+    z-index: 999;
+  }
+  .wa-btn:hover { transform: scale(1.1); }
+  .wa-btn svg { width: 32px; height: 32px; fill: #fff; }
+  .wa-label {
+    position: fixed;
+    bottom: 32px; right: 92px;
+    background: #fff;
+    color: #25D366;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px; font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 999;
+  }
+
+  footer {
+    background: #c8102e;
+    color: #fff;
+    text-align: center;
+    padding: 14px;
+    font-size: 13px;
+  }
+</style>
 </head>
 <body>
 
-<header class="header">
-  <div class="header-inner">
-    <a href="index.html" class="logo">
-      <div class="logo-mark">🎓</div>
-      <div>
-        <div class="logo-text">KNEC Hub</div>
-        <div class="logo-sub">Past Papers · Tools</div>
-      </div>
-    </a>
-    <nav class="nav">
-      <a href="index.html">Past Papers</a>
-      <a href="kuccps.html" class="active kuccps">KUCCPS</a>
-      <a href="app.html">App</a>
-    </nav>
+<header>
+  <div class="logo">K</div>
+  <div>
+    <h1>KUCCPS Placement Portal</h1>
+    <p>Kenya Universities & Colleges Central Placement Service</p>
   </div>
 </header>
 
-<section class="hero kuccps-hero">
-  <div class="hero-inner" style="text-align:left">
-    <div class="hero-pill" style="border-color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.1);color:white">
-      ✨ KUCCPS Tools · 2025
-    </div>
-    <h1 style="text-align:left;color:white;max-width:800px;margin:0">KUCCPS Tools — pick what you need.</h1>
-    <p style="text-align:left;margin:18px 0 0;max-width:620px">Two dedicated tools, each on its own page. Choose below.</p>
-  </div>
-</section>
+<main>
+  <div class="card">
+    <h2>Check Your Placement</h2>
+    <p class="sub">Enter your KCSE index number and exam year to view your degree or diploma placement.</p>
 
-<main class="container" style="padding-top:50px">
-  <div class="product-grid">
-    <a class="product-card kuccps-card" href="kuccps-course-finder.html">
-      <div class="product-icon">🎯</div>
-      <div class="product-route">/kuccps/course-finder</div>
-      <h3>Course Finder</h3>
-      <p>Match your KCSE grades to the most marketable degree and diploma programmes across Kenya.</p>
-      <span class="product-cta">Open tool →</span>
-    </a>
-    <a class="product-card kuccps-card" href="kuccps-placement-results.html">
-      <div class="product-icon">📋</div>
-      <div class="product-route">/kuccps/placement-results</div>
-      <h3>Placement Results</h3>
-      <p>Check your 2025 KUCCPS placement using your KCSE index number and exam year.</p>
-      <span class="product-cta">Open tool →</span>
-    </a>
+    <form id="placementForm" onsubmit="checkPlacement(event)">
+      <label for="index">KCSE Index Number</label>
+      <input type="text" id="index" placeholder="e.g. 12345678901" required />
+
+      <label for="year">KCSE Year</label>
+      <select id="year" required>
+        <option value="">Select year</option>
+        <option>2025</option>
+        <option>2024</option>
+        <option>2023</option>
+        <option>2022</option>
+        <option>2021</option>
+      </select>
+
+      <button type="submit" class="check">Check Placement</button>
+    </form>
+
+    <div class="result" id="result">
+      <span class="cap">🎓</span>
+      <h3>Congratulations!</h3>
+      <p id="resultText">You have been placed.</p>
+    </div>
   </div>
 </main>
 
-<footer class="footer">
-  © <span id="yr"></span> KNEC Hub · Past papers, KUCCPS tools & more.
-</footer>
+<a class="wa-label" href="https://wa.me/254734002689" target="_blank">Need help?</a>
+<a class="wa-btn" href="https://wa.me/254734002689" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M20.52 3.48A11.86 11.86 0 0 0 12.06 0C5.5 0 .18 5.32.18 11.88c0 2.09.55 4.13 1.6 5.93L0 24l6.34-1.66a11.86 11.86 0 0 0 5.72 1.46h.01c6.55 0 11.88-5.33 11.88-11.88 0-3.17-1.24-6.15-3.43-8.44zM12.07 21.6h-.01a9.7 9.7 0 0 1-4.95-1.36l-.36-.21-3.76.98 1-3.66-.23-.38a9.71 9.71 0 0 1-1.49-5.18c0-5.37 4.37-9.74 9.75-9.74 2.6 0 5.04 1.01 6.88 2.85a9.66 9.66 0 0 1 2.85 6.89c0 5.37-4.37 9.81-9.68 9.81zm5.34-7.3c-.29-.15-1.73-.85-2-.95-.27-.1-.46-.15-.66.15s-.76.95-.93 1.15c-.17.2-.34.22-.63.07-.29-.15-1.23-.45-2.34-1.45-.86-.77-1.45-1.72-1.62-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.15-.17.2-.29.29-.49.1-.2.05-.37-.02-.51-.07-.15-.66-1.6-.91-2.19-.24-.57-.48-.5-.66-.51-.17-.01-.37-.01-.57-.01-.2 0-.51.07-.78.37-.27.29-1.02 1-1.02 2.44s1.05 2.83 1.2 3.03c.15.2 2.07 3.16 5.02 4.43.7.3 1.25.48 1.68.62.71.22 1.35.19 1.86.12.57-.08 1.73-.71 1.97-1.39.24-.69.24-1.27.17-1.39-.07-.12-.27-.2-.56-.34z"/></svg>
+</a>
 
-<script>document.getElementById("yr").textContent = new Date().getFullYear();</script>
-<script src="script.js"></script>
+<footer>© 2026 KUCCPS Placement Portal · All rights reserved</footer>
+
+<script>
+  function checkPlacement(e) {
+    e.preventDefault();
+    const index = document.getElementById('index').value.trim();
+    const year  = document.getElementById('year').value;
+    const result = document.getElementById('result');
+    const text   = document.getElementById('resultText');
+
+    if (!index || !year) return;
+
+    text.innerHTML =
+      `You have been <strong>successfully placed</strong>!<br><br>` +
+      `<strong>Index:</strong> ${index} &nbsp; <strong>Year:</strong> ${year}`;
+    result.classList.add('show');
+    result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+</script>
 </body>
 </html>

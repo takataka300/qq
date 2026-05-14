@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>KNEC Past Papers — KCSE, TVET, University | KNEC Hub</title>
-<meta name="description" content="Download KNEC past papers, KCSE 2025 & 2026 past papers, KJSEA, KPSEA, TVET and college papers — full set KSh 1,500." />
+<title>KCSE Computer Projects — Azani Paper 3 Project | KNEC Hub</title>
+<meta name="description" content="Download KCSE Paper 3 computer projects including the Azani project. Full documentation + database for KSh 1,500." />
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 <link rel="apple-touch-icon" href="favicon.svg" />
-<meta property="og:title" content="KNEC Past Papers — KCSE, TVET, University | KNEC Hub" />
-<meta property="og:description" content="Download KNEC past papers, KCSE 2025 & 2026 past papers, KJSEA, KPSEA, TVET and college papers — full set KSh 1,500." />
+<meta property="og:title" content="KCSE Computer Projects — Azani Paper 3 Project | KNEC Hub" />
+<meta property="og:description" content="Download KCSE Paper 3 computer projects including the Azani project. Full documentation + database for KSh 1,500." />
 <meta property="og:type" content="website" />
 <meta property="og:image" content="preview.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="preview.jpg" />
 <link rel="stylesheet" href="styles.css" />
 </head>
-<body data-page="knec-past" class="">
+<body data-page="kcse-projects" class="">
 
 <header class="header">
   <div class="header-inner">
@@ -41,13 +41,9 @@
 
 <section class="hero knec-hero">
   <div class="hero-inner">
-    <div class="hero-pill"><span style="width:6px;height:6px;border-radius:50%;background:var(--knec)"></span> Full Set Access · KSh 1,500</div>
-    <h1>Kenya National Examinations Council<span class="accent">Past Papers & Revision Hub</span></h1>
-    <p>One place for KNEC past papers, TVET exams, KCSE revision, computer projects and university degree revision papers — all courses, marking schemes included.</p>
-    <div class="search-wrap">
-      <input id="paper-search" class="search-input" type="text" placeholder="Search any paper — e.g. 'Physics Paper 2', 'CPA', 'BCom Year 2'…" />
-      <div id="search-results" class="search-results" style="display:none"></div>
-    </div>
+    <div class="hero-pill"><span style="width:6px;height:6px;border-radius:50%;background:var(--knec)"></span> KCSE Paper 3 Projects · KSh 1,500</div>
+    <h1>KCSE Computer Projects<span class="accent">Paper 3 — Documentation + Database</span></h1>
+    <p>Pick a project from the dropdown to view full information and download the complete documentation + database files.</p>
     <div class="hero-tags">
       <span class="tag">📚 5,000+ papers</span>
       <span class="tag">✓ Marking schemes</span>
@@ -59,11 +55,11 @@
 
 <main class="container layout">
   <aside class="tabs-side" id="main-tabs" role="navigation" aria-label="Sections">
-    <a href="index.html" class="tab active">📚 KNEC Past Papers</a>
+    <a href="index.html" class="tab">📚 KNEC Past Papers</a>
     <a href="knec-download.html" class="tab">⬇️ KNEC Download</a>
     <a href="tvet-past.html" class="tab">🛠 KNEC TVET Exam Past Papers</a>
     <a href="kcse-past.html" class="tab">📝 KCSE KNEC Past Papers</a>
-    <a href="kcse-projects.html" class="tab">💻 KCSE Computer Projects</a>
+    <a href="kcse-projects.html" class="tab active">💻 KCSE Computer Projects</a>
     <a href="tvet-revision.html" class="tab">📘 TVET Revision Papers</a>
     <a href="kcse-revision.html" class="tab">📗 KCSE Revision Papers</a>
     <a href="uni-revision.html" class="tab">🎓 University Degree Revision</a>
@@ -71,58 +67,46 @@
   <div class="tabs-content">
     <section class="section">
       <div class="section-header">
-        <div class="section-icon">📖</div>
+        <div class="section-icon">💻</div>
         <div>
-          <div class="eyebrow">KCSE · 2025</div>
-          <h2>KCSE 2025 Past Papers</h2>
-          <p class="desc">Complete subject coverage for the 2025 KCSE — every paper, every subject, with marking schemes.</p>
+          <div class="eyebrow">KCSE · Paper 3 Projects</div>
+          <h2>Pick a KCSE Computer Project</h2>
+          <p class="desc">Each project includes the documentation booklet, MS Access database files, ERDs/DFDs, sample data, and a user manual.</p>
         </div>
       </div>
-      <div class="paper-grid" id="kcse2025-grid"></div>
-    </section>
-    <section class="section">
-      <div class="section-header">
-        <div class="section-icon">📖</div>
-        <div>
-          <div class="eyebrow">KCSE · 2026</div>
-          <h2>KCSE 2026 Past Papers</h2>
-          <p class="desc">All 2026 KCSE subject papers — every paper of every subject, plus marking schemes.</p>
+
+      <div class="tool-select-wrap" style="max-width:640px">
+        <div class="tool-select-label">Select project</div>
+        <select class="tool-select" id="kcse-project-select">
+          <option value="">— Choose a KCSE Computer Project —</option>
+          <option value="azani">Azani KCSE Computer Project</option>
+        </select>
+      </div>
+
+      <div id="project-azani" class="project-info" style="display:none">
+        <div class="results-card" style="margin-top:24px">
+          <div class="eyebrow" style="color:var(--knec)">Featured Project</div>
+          <h2 style="margin:6px 0 10px">Azani KCSE Computer Project</h2>
+          <p style="color:var(--muted-fg);max-width:720px">
+            <b>Azani</b> is a complete KCSE Paper 3 Computer Studies project — a school-management style
+            information system covering student registration, fees, marks entry, report generation and
+            backup. Fully compliant with the KNEC Paper 3 marking rubric: problem definition,
+            user requirements, design (DFDs, ERDs), implementation (Microsoft Access / VB), testing,
+            user manual and documentation are all included.
+          </p>
+          <ul class="bullet-list">
+            <li>Complete documentation booklet (~60 pages, ready for printing)</li>
+            <li>Functional Microsoft Access database with forms, queries, reports & macros</li>
+            <li>Sample data + filled report templates (matches KNEC marking scheme)</li>
+            <li>Entity Relationship Diagram (ERD) and Data Flow Diagrams (DFDs)</li>
+            <li>Step-by-step user manual with screenshots</li>
+            <li>Editable — change the school name, logo, colors before submission</li>
+          </ul>
+          <button class="btn btn-knec btn-lg" style="margin-top:20px" data-pay="Azani KCSE Computer Project">
+            Unlock & Download — KSh 1,500
+          </button>
         </div>
       </div>
-      <div class="paper-grid" id="kcse2026-grid"></div>
-    </section>
-    <section class="section">
-      <div class="section-header">
-        <div class="section-icon">📄</div>
-        <div>
-          <div class="eyebrow">KJSEA · Grade 9</div>
-          <h2>KJSEA 2025 Past Papers</h2>
-          <p class="desc">Kenya Junior School Education Assessment — full CBC papers.</p>
-        </div>
-      </div>
-      <div class="paper-grid" id="kjsea-grid"></div>
-    </section>
-    <section class="section">
-      <div class="section-header">
-        <div class="section-icon">📄</div>
-        <div>
-          <div class="eyebrow">KPSEA · Grade 6</div>
-          <h2>KPSEA 2025 Past Papers</h2>
-          <p class="desc">Kenya Primary School Education Assessment papers.</p>
-        </div>
-      </div>
-      <div class="paper-grid" id="kpsea-grid"></div>
-    </section>
-    <section class="section">
-      <div class="section-header">
-        <div class="section-icon">🔍</div>
-        <div>
-          <div class="eyebrow">Colleges & TVET · 2025</div>
-          <h2>College Past Papers 2025</h2>
-          <p class="desc">KASNEB, KMTC, KIMC, TVET and Diploma past papers.</p>
-        </div>
-      </div>
-      <div class="paper-grid" id="college-grid"></div>
     </section>
   </div>
 </main>
